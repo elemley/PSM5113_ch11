@@ -10,6 +10,50 @@ from time_step_scrolling import *
 
 start_time = time.time()
 
+# Due date = Thursday April
+# This project and the prisoner's dilemma constitute all of Ch. 11
+# This project is to model changes in land use as a new highway is built near a town
+# This program should run for several years to observe trends in movement
+
+
+# Generate town (size of 40 blocks)
+# generate streets - use a standard block size of 150 meters on a side -- to keep it simple make this a basic grid
+# generate a railway that runs near town center
+# generate some businesses - retail, industrial, restauraunts, convenience stores with fuel (add your own?) These should be near the town's center
+# industrial businesses are concentrated by the rail line
+# industrial businesses can occupy more than one block
+# generate 4 elementary (uniform distribution), 2 middle (north and south), and 1 high school (near center)
+# generate a small college campus that occupies 7 square blocks on edge of town
+# generate a city park near the center of town
+# generate residential housing (multi-family and single family)
+#
+
+# Generate new highway location - note it will cut through the town but not too close to town center
+# Make it an average of 12 blocks from the town center with a standard deviation of 3 blocks
+# Make it on the same side of town as the college campus
+
+#Display the grid
+
+
+# agents
+# business owners (separate out by business type)
+# residents (resident types you define)
+
+# rules for agents
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
 BETRAY = 0
 COOP = 1
 NOTHING = 2
@@ -20,16 +64,18 @@ P = 2
 S = 3
 
 def main():
-    N = 5  #number of iterations of prisoner's dilemma
+    N = 50  #number of iterations of prisoner's dilemma
 
-    prob_betray_A = 1.0
-    prob_betray_B = 0.0
+    prob_betray_A_mean = 0.4
+    prob_betray_A_std = 0.2
+    prob_betray_B_mean = 0.6
+    prob_betray_B_std = 0.1
 
-    if random() > prob_betray_A:
+    if box_muller(prob_betray_A_mean, prob_betray_A_std) < 0.5:
         A = COOP
     else:
         A = BETRAY
-    if random() > prob_betray_B:
+    if box_muller(prob_betray_B_mean,prob_betray_B_std) < 0.5:
         B = COOP
     else:
         B = BETRAY
@@ -49,7 +95,10 @@ def main():
     years_served_B = [sumB]
 
     for i in range(1,N):
-        newA = prisoner[i-1,1] #classic solution - tit for tat reciprocate other persons response from last time
+        #modify so that some fraction of time the game is altered...
+        #if
+
+        newA = prisoner[i-1,1]
         newB = prisoner[i-1,0]
         prisoner[i,0]=newA
         prisoner[i, 1] = newB
@@ -78,10 +127,7 @@ def main():
     y1label = "Years Served A"
     y2label = "Years Served B"
 
-
     TwoLineColorsPlot111(range(N),years_served_A,y1label,years_served_B,y2label,xlabel,ylabel,title,filename)
-
-
 
     """
     #cmap1 = LinearSegmentedColormap.from_list("my_map", cdict1, 3)
@@ -102,6 +148,13 @@ def years_served(A,B):
     else:
         return P
 
+def box_muller(mu,sigma):
+    a = uniform(0, 2 * pi)  # a param of Box Muller
+    tmp = random()  # rand 0-1
+    b = sigma * sqrt(-2 * log(tmp))  # b param of Box Muller
+    gauss_rand1 = b * sin(a) + mu  # sample from dist. (first of two)
+    #gauss_rand2 = b * cos(a) + mu  # sample from dist. (second of two)
+    return gauss_rand1
 
 if __name__ == '__main__':
     main()
