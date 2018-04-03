@@ -23,8 +23,8 @@ def main():
     N = 50  #number of iterations of prisoner's dilemma
 
     prob_betray_A_mean = 0.4
-    prob_betray_A_std = 0.2
-    prob_betray_B_mean = 0.6
+    prob_betray_A_std = 0.1
+    prob_betray_B_mean = 0.7
     prob_betray_B_std = 0.1
 
     if box_muller(prob_betray_A_mean, prob_betray_A_std) < 0.5:
@@ -56,6 +56,15 @@ def main():
 
         newA = prisoner[i-1,1]
         newB = prisoner[i-1,0]
+        if box_muller(prob_betray_A_meanv, prob_betray_A_std) < 0.5:
+            A = COOP
+        else:
+            A = BETRAY
+        if box_muller(prob_betray_B_mean, prob_betray_B_std) < 0.5:
+            B = COOP
+        else:
+            B = BETRAY
+
         prisoner[i,0]=newA
         prisoner[i, 1] = newB
         sumA += years_served(prisoner[i, 0], prisoner[i, 1])

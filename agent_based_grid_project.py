@@ -10,7 +10,7 @@ from time_step_scrolling import *
 
 start_time = time.time()
 
-# Due date = Monday April 16
+# Due date = Friday April 20
 # In-class presentation on April 17
 # This project and the prisoner's dilemma constitute all of Ch. 11
 # This project is to model changes in land use as a new highway is built near a town
@@ -33,7 +33,7 @@ start_time = time.time()
 # Make it an average of 12 blocks from the town center with a standard deviation of 3 blocks
 # Make it on the same side of town as the college campus
 
-#Display the grid
+#Display the grid -- Due Tues. Apr. 3
 
 
 # agents
